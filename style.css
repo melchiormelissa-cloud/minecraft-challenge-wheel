@@ -1,0 +1,208 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --page-bg: #0d1b12;
+  --panel-bg: #1b2d1f;
+  --panel-alt: #112417;
+  --text: #ecf9ef;
+  --muted: #b9d9c0;
+  --accent: #79d68d;
+  --accent-2: #f8d66d;
+  --shadow: rgba(0, 0, 0, 0.35);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at top, rgba(121, 214, 141, 0.18), transparent 30%),
+    linear-gradient(180deg, #0d1b12 0%, #101f17 100%);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.page {
+  width: min(960px, 92vw);
+  padding: 24px 18px 36px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 22px;
+}
+
+.title-wrap {
+  text-align: center;
+}
+
+.kicker {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+h1 {
+  margin: 8px 0 0;
+  font-size: clamp(2rem, 4vw, 4rem);
+}
+
+.game-panel {
+  display: grid;
+  grid-template-columns: minmax(320px, 1fr) minmax(220px, 0.9fr);
+  gap: 28px;
+  align-items: center;
+  background: rgba(18, 36, 24, 0.8);
+  border: 2px solid rgba(121, 214, 141, 0.3);
+  border-radius: 30px;
+  padding: 28px 24px;
+  box-shadow: 0 22px 60px var(--shadow);
+}
+
+.wheel-shell {
+  position: relative;
+  width: min(78vw, 440px);
+  aspect-ratio: 1;
+  margin: 0 auto;
+  display: grid;
+  place-items: center;
+}
+
+.wheel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 12px solid #d9f5e0;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.25), 0 12px 26px rgba(0,0,0,0.3);
+  transition: transform 4.8s cubic-bezier(0.12, 0.76, 0.2, 1);
+  overflow: hidden;
+}
+
+.wheel::before {
+  content: "";
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  border: 2px dashed rgba(255,255,255,0.26);
+}
+
+.wheel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, transparent 0 56%, rgba(0,0,0,0.2) 58%, rgba(0,0,0,0.32) 100%);
+}
+
+.wheel-label {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  font-weight: 700;
+  color: #f4fff7;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  transform-origin: center center;
+  text-align: center;
+  font-size: clamp(0.6rem, 1.2vw, 0.88rem);
+  letter-spacing: 0.04em;
+  width: 110px;
+}
+
+.wheel-label span {
+  display: inline-block;
+  max-width: 92px;
+  line-height: 1.1;
+}
+
+.wheel-pointer {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 26px solid transparent;
+  border-right: 26px solid transparent;
+  border-top: 0 solid transparent;
+  border-bottom: 48px solid var(--accent-2);
+  right: 50%;
+  top: -18px;
+  transform: translateX(50%);
+  filter: drop-shadow(0 10px 14px rgba(0,0,0,0.22));
+  z-index: 2;
+}
+
+.panel {
+  background: linear-gradient(180deg, var(--panel-bg), var(--panel-alt));
+  border-radius: 24px;
+  padding: 22px 20px;
+  border: 1px solid rgba(121, 214, 141, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.challenge-label {
+  margin: 0;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+}
+
+.result-box {
+  min-height: 120px;
+  display: grid;
+  place-items: center;
+  background: rgba(121, 214, 141, 0.08);
+  border: 1px solid rgba(121, 214, 141, 0.2);
+  border-radius: 16px;
+  padding: 16px;
+  text-align: center;
+  font-size: clamp(1.2rem, 2vw, 2rem);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.spin-btn {
+  appearance: none;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #7ae28d, #4bad6e);
+  color: #0e1d12;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 16px 22px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 12px 22px rgba(74, 147, 91, 0.35);
+}
+
+.spin-btn:hover {
+  transform: translateY(-1px);
+}
+
+.spin-btn:active {
+  transform: translateY(1px);
+}
+
+@media (max-width: 720px) {
+  .game-panel {
+    grid-template-columns: 1fr;
+    padding: 22px 16px;
+  }
+
+  .panel {
+    order: 2;
+  }
+
+  .wheel-shell {
+    order: 1;
+  }
+}
